@@ -159,5 +159,6 @@ sudo pip install -r requirements.txt
 ## Create OVA From VM or VM Template
 
 ```powershell
-ovftool.exe vi://vcenter.rich.ciscolabs.com/RICH/vm/ubuntu22.0.4 C:\Users\tyscott\Downloads\imm-toolkitv0.1.ova
+cd %ProgramFiles%\VMware\VMware OVF Tool
+ovftool.exe vi://<vcenter-url>/<datacenter>/vm/<vm-folder> %HOMEPATH%\Downloads\imm-toolkitv0.1.ova
 ```
