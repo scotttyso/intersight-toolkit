@@ -1,0 +1,8 @@
+[Unit]
+After=network.target
+
+[Service]
+ExecStart=/usr/local/bin/ovf_network_config.sh
+
+[Install]
+WantedBy=default.target
