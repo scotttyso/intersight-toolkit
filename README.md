@@ -155,3 +155,9 @@ sudo pip install -r requirements.txt
   - Key ID: guestinfo.ntp
   - Label: NTP Servers
   - Type: string
+
+## Create OVA From VM or VM Template
+
+```powershell
+ovftool.exe vi://vcenter.rich.ciscolabs.com/RICH/vm/ubuntu22.0.4 C:\Users\tyscott\Downloads\imm-toolkitv0.1.ova
+```
