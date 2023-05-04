@@ -45,7 +45,7 @@ cd /etc/nginx/sites-enabled
 vim default
 ```
 
-* Copy the contents of nginx-sites-defualt into the above file
+* Copy the contents of nginx-sites-default into the above file
 
 ```bash
 systemctl restart nginx
