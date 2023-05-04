@@ -18,9 +18,9 @@ else
     GATEWAY=$(vmtoolsd --cmd "info-get guestinfo.ovfEnv"     | grep "guestinfo.gateway"  | awk -F 'oe:value="' '{print $2}' | awk -F '"' '{print $1}')
     PREFIX=$(vmtoolsd --cmd "info-get guestinfo.ovfEnv"      | grep "guestinfo.prefix"   | awk -F 'oe:value="' '{print $2}' | awk -F '"' '{print $1}')
 
-    ##################################
-    ### No User Input, assume DHCP ###
-    ##################################
+    ######################################
+    ### Determine if IP_SOURCE is DHCP ###
+    ######################################
     if [[ ${IP_SOURCE} == DHCP ]]; then
         cat > ${NETPLAN_FILE} << __CUSTOMIZE_NETPLAN__
 network:
@@ -54,7 +54,7 @@ __CUSTOMIZE_NETPLAN__
     hostnamectl set-hostname ${HOSTNAME}
     netplan apply
     fi
-    if [ "${NTP_SERVERS}" ]; then
+    if [[ ${NTP_SERVERS} ]]; then
     ###########################
     ### NTP Server Settings ###
     ###########################
@@ -77,7 +77,7 @@ filegen clockstats file clockstats type day enable
 # Specify one or more NTP servers.
 __CUSTOMIZE_TIMESYNC__
         IFS=', ' read -r -a array <<< ${NTP_SERVERS}
-        printf "server %s\n" "${NTP_SERVERS[@]}" >> /etc/ntp.conf
+        printf "server %s\n" "${array[@]}" >> /etc/ntp.conf
         cat >> /etc/ntp.conf << __CUSTOMIZE_TIMESYNC__
 
 # Use servers from the NTP Pool Project. Approved by Ubuntu Technical Board
