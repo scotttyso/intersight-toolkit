@@ -13,6 +13,7 @@ else
     DNS_SERVERS=$(vmtoolsd --cmd "info-get guestinfo.ovfEnv" | grep "guestinfo.dns"      | awk -F 'oe:value="' '{print $2}' | awk -F '"' '{print $1}')
     NTP_SERVERS=$(vmtoolsd --cmd "info-get guestinfo.ovfEnv" | grep "guestinfo.ntp"      | awk -F 'oe:value="' '{print $2}' | awk -F '"' '{print $1}')
     IP_ADDRESS=$(vmtoolsd --cmd "info-get guestinfo.ovfEnv" | grep "guestinfo.ipaddress" | awk -F 'oe:value="' '{print $2}' | awk -F '"' '{print $1}')
+    IP_SOURCE=$(vmtoolsd --cmd "info-get guestinfo.ovfEnv"  | grep "guestinfo.ip_source" | awk -F 'oe:value="' '{print $2}' | awk -F '"' '{print $1}')
     HOSTNAME=$(vmtoolsd --cmd "info-get guestinfo.ovfEnv"    | grep "guestinfo.hostname" | awk -F 'oe:value="' '{print $2}' | awk -F '"' '{print $1}')
     GATEWAY=$(vmtoolsd --cmd "info-get guestinfo.ovfEnv"     | grep "guestinfo.gateway"  | awk -F 'oe:value="' '{print $2}' | awk -F '"' '{print $1}')
     PREFIX=$(vmtoolsd --cmd "info-get guestinfo.ovfEnv"      | grep "guestinfo.prefix"   | awk -F 'oe:value="' '{print $2}' | awk -F '"' '{print $1}')
@@ -20,7 +21,7 @@ else
     ##################################
     ### No User Input, assume DHCP ###
     ##################################
-    if [ -z "${HOSTNAME}" ]; then
+    if [[ ${IP_SOURCE} == DHCP ]]; then
         cat > ${NETPLAN_FILE} << __CUSTOMIZE_NETPLAN__
 network:
   version: 2

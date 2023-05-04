@@ -79,7 +79,7 @@ systemctl daemon-reload
 systemctl enable ovf-network-config.service
 ```
 
-# Install Python and Powershell Modules
+## Install Python and Powershell Modules
 
 ```bash
 sudo apt install python3-pip
@@ -95,3 +95,63 @@ cd intersight_iac/
 sudo pip install -r requirements.txt
 ```
 
+## Setup OVF Customization on VM
+
+![alt text](vApp-Options.png "vApp Options")
+
+![alt text](vApp-Properties.png "vApp Properties")
+
+- IP Source
+  - Category: Networking
+  - Description:
+  - Key ID: guestinfo.ip_source
+  - Label: IP Source
+  - Type: string choice
+  - Choice List: "DHCP", "STATIC"
+  - Default value: STATIC
+- Hostname
+  - Category: Networking
+  - Description: The Fully Qualified Domain Name
+  - Key ID: guestinfo.hostname
+  - Label: Hostname
+  - Type: string
+- IP Address
+  - Category: Networking
+  - Description:
+  - Key ID: guestinfo.ipaddress
+  - Label: IP Address
+  - Type: string
+  - Length: 7 to 15
+- Network Prefix
+  - Category: Networking
+  - Description:
+  - Key ID: guestinfo.prefix
+  - Label: Network Prefix
+  - Type: integer
+  - range: 1 to 30
+  - Default value: 24
+- Gateway
+  - Category: Networking
+  - Description:
+  - Key ID: guestinfo.gateway
+  - Label: Gateway
+  - Type: string
+  - Length: 7 to 15
+- DNS Servers
+  - Category: Networking
+  - Description: Use a comma to separate multiple servers.  i.e. 8.8.4.4,8.8.8.8
+  - Key ID: guestinfo.dns
+  - Label: DNS Servers
+  - Type: string
+- DNS Domains
+  - Category: Networking
+  - Description: Use a comma to separate multiple domains.  i.e. cisco.com,example.com
+  - Key ID: guestinfo.domain
+  - Label: DNS Domains
+  - Type: string
+- NTP Servers
+  - Category: Networking
+  - Description: Use a comma to separate multiple servers.  i.e. 0.pool.ntp.org,1.pool.ntp.org
+  - Key ID: guestinfo.ntp
+  - Label: NTP Servers
+  - Type: string
