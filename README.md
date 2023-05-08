@@ -79,11 +79,10 @@ systemctl daemon-reload
 systemctl enable ovf-network-config.service
 ```
 
-## Install Python and Powershell Modules
+## Install Python and Modules
 
 ```bash
 sudo apt install python3-pip
-sudo snap install powershell
 cd ~
 mkdir Downloads
 mkdir github
@@ -93,6 +92,52 @@ sudo ln -s /home/imm-toolkit/github/intersight_iac/ezci.py /usr/bin/ezimm.py
 sudo ln -s /home/imm-toolkit/github/intersight_iac/ezci.py /usr/bin/ezci.py
 cd intersight_iac/
 sudo pip install -r requirements.txt
+sudo pip install intersight
+cd ~
+```
+
+## Install Ansible and Galaxy Modules
+
+```bash
+sudo apt install ansible -y
+ansible-galaxy collection install cisco.intersight
+```
+
+## Install PowerShell and Modules
+
+```bash
+sudo snap install powershell
+pwsh -Command Install-Module -Name Intersight.PowerShell -Force
+pwsh -Command Install-Module -Name VMware.PowerCLI -Force
+```
+
+
+## Install Terraform
+
+```bash
+sudo apt-get update && sudo apt-get install -y gnupg software-properties-common
+wget -O- https://apt.releases.hashicorp.com/gpg | gpg --dearmor | \
+sudo tee /usr/share/keyrings/hashicorp-archive-keyring.gpg
+echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] \
+https://apt.releases.hashicorp.com $(lsb_release -cs) main" | \
+sudo tee /etc/apt/sources.list.d/hashicorp.list
+sudo apt update
+sudo apt-get install terraform
+terraform -install-autocomplete
+```
+
+## Install isdk
+
+```bash
+LOCATION=$(curl -s https://api.github.com/repos/cgascoig/isctl/releases/latest \
+| grep "tag_name" \
+| awk '{print "https://github.com/cgascoig/isctl/releases/download/" substr($2, 2, length($2)-3) \
+"/isctl_" substr($2, 2, length($2)-3) "_Linux_x86_64.tar.gz"}' \
+| sed 's/isctl_v/isctl_/'); curl -L -o isctl.tar.gz $LOCATION
+tar -xvf isctl.tar.gz
+rm isctl.tar.gz
+sudo mv isctl /usr/local/bin/
+sudo chmod +x /usr/local/bin/isctl
 ```
 
 ## Setup OVF Customization on VM
