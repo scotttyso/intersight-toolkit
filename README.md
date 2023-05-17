@@ -107,7 +107,7 @@ git clone https://github.com/scotttyso/intersight_iac
 ```
 
 ```bash
-sudo ln -s /home/imm-toolkit/github/intersight_iac/ezci.py /usr/bin/ezimm.py
+sudo ln -s /home/imm-toolkit/github/intersight_iac/ezimm.py /usr/bin/ezimm.py
 sudo ln -s /home/imm-toolkit/github/intersight_iac/ezci.py /usr/bin/ezci.py
 cd intersight_iac/
 sudo pip install -r requirements.txt
