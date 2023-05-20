@@ -101,7 +101,11 @@ sudo apt install python3-pip
 ```bash
 cd ~
 mkdir Downloads
+chwon imm-toolkit:imm-toolkit Downloads
+mkdir Logs
+chwon imm-toolkit:imm-toolkit Logs
 mkdir github
+chwon imm-toolkit:imm-toolkit github
 cd github/
 git clone https://github.com/scotttyso/intersight_iac
 ```
@@ -109,6 +113,7 @@ git clone https://github.com/scotttyso/intersight_iac
 ```bash
 sudo ln -s /home/imm-toolkit/github/intersight_iac/ezimm.py /usr/bin/ezimm.py
 sudo ln -s /home/imm-toolkit/github/intersight_iac/ezci.py /usr/bin/ezci.py
+sudo ln -s /home/imm-toolkit/github/intersight_iac/ezvcenter.ps1 /usr/bin/ezvcenter.ps1
 cd intersight_iac/
 sudo pip install -r requirements.txt
 ```
