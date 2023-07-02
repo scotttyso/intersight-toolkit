@@ -20,7 +20,7 @@ sudo apt install nginx
 Configure Security Settings for nginx.
 
 ```bash
-sudo vim /etc/nginx/nginx/nginx.conf
+sudo vim /etc/nginx/nginx.conf
 ```
 
 * Copy the contents of the nginx.conf file
@@ -31,7 +31,7 @@ Generate the Certificate and Private Key
 cd /etc/nginx
 sudo mkdir ssl
 cd ssl
-openssl req -new -newkey rsa:2048 -days 1095 -nodes -x509 -keyout nginx.key -out nginx.crt
+sudo openssl req -new -newkey rsa:2048 -days 1095 -nodes -x509 -keyout nginx.key -out nginx.crt
 ```
 
 
@@ -101,11 +101,11 @@ sudo apt install python3-pip
 ```bash
 cd ~
 mkdir Downloads
-chwon imm-toolkit:imm-toolkit Downloads
+chown imm-toolkit:imm-toolkit Downloads
 mkdir Logs
 chwon imm-toolkit:imm-toolkit Logs
 mkdir github
-chwon imm-toolkit:imm-toolkit github
+chown imm-toolkit:imm-toolkit github
 cd github/
 git clone https://github.com/scotttyso/intersight_iac
 ```
@@ -119,8 +119,8 @@ sudo pip install -r requirements.txt
 ```
 
 ```bash
-sudo pip install intersight
 cd ~
+sudo pip install intersight
 ```
 
 ## Install Ansible and Galaxy Modules
