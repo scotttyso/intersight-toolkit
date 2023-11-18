@@ -7,6 +7,7 @@
 **/terraform.tfvars
 **/.terraform.lock.hcl
 **/http/user-data
+**/variables.yaml
 
 # Local Python Directories
 **/Testing*/*

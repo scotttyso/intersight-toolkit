@@ -1,154 +1,21 @@
-# IMM Toolkit Setup Instructions
+# Intersight Toolkit Setup Instructions
+
+The purpose of this packer example is to build an automation platform to manage Cisco Intersight.  The current example deployes a template in a VMware environment, which then can be used to create an OVA for distribution.
 
 ## Updates/News
 
-05-04-2023
-* Initial Release
+* 2023-11-18 - v2.0 - Moving to HashiCorp Packer - Guidance from https://tekanaid.com/posts/hashicorp-packer-build-ubuntu22-04-vmware
+* 2023-05-04 - Initial Release
 
-## Setup NGINX
+## Setup Environment
 
-Install NGINX and NetTools
+Install the following packages for Packer.
 
-```bash
-sudo apt install net-tools
+```sh
+sudo apt install mkisofs whois -y
 ```
 
-```bash
-sudo apt install nginx
-```
-
-Configure Security Settings for nginx.
-
-```bash
-sudo vim /etc/nginx/nginx.conf
-```
-
-* Copy the contents of the nginx.conf file
-
-Generate the Certificate and Private Key
-
-```bash
-cd /etc/nginx
-sudo mkdir ssl
-cd ssl
-sudo openssl req -new -newkey rsa:2048 -days 1095 -nodes -x509 -keyout nginx.key -out nginx.crt
-```
-
-
-```bash
-sudo chown www-data:www-data nginx.key
-sudo chown www-data:www-data nginx.crt
-sudo chmod 400 nginx.crt
-sudo chmod 400 nginx.key
-```
-
-Setup default site for File Services over HTTPS
-
-```bash
-cd /var/www/
-sudo mkdir upload
-cd upload/
-sudo touch test.txt
-cd /etc/nginx/sites-enabled
-sudo vim default
-```
-
-* Copy the contents of nginx-sites-default into the above file
-
-```bash
-sudo systemctl restart nginx
-sudo systemctl status nginx.service
-netstat -tulpn
-```
-
-## Setup NTP
-
-* Install NTP
-
-```bash
-sudo apt install ntp
-```
-
-## Setup  OVF Customization Script
-
-```bash
-sudo vim /usr/local/bin/ovf_network_config.sh
-```
-
-* Copy the contents of ovf_network_config.sh
-
-```bash
-sudo vim /etc/systemd/system/ovf-network-config.service
-```
-
-* Copy the contents of ovf-network-config.service
-
-* Change the Permissions on the Files
-
-```bash
-sudo chmod 744 /usr/local/bin/ovf_network_config.sh
-sudo chmod 664 /etc/systemd/system/ovf-network-config.service
-sudo systemctl daemon-reload
-sudo systemctl enable ovf-network-config.service
-```
-
-## Install Python and Modules
-
-```bash
-sudo apt install python3-pip
-```
-
-```bash
-cd ~
-mkdir Downloads
-chown imm-toolkit:imm-toolkit Downloads
-mkdir Logs
-chwon imm-toolkit:imm-toolkit Logs
-mkdir github
-chown imm-toolkit:imm-toolkit github
-cd github/
-git clone https://github.com/scotttyso/intersight_iac
-```
-
-```bash
-sudo ln -s /home/imm-toolkit/github/intersight_iac/ezimm.py /usr/bin/ezimm.py
-sudo ln -s /home/imm-toolkit/github/intersight_iac/ezci.py /usr/bin/ezci.py
-sudo ln -s /home/imm-toolkit/github/intersight_iac/ezvcenter.ps1 /usr/bin/ezvcenter.ps1
-cd intersight_iac/
-sudo pip install -r requirements.txt
-```
-
-```bash
-cd ~
-sudo pip install intersight
-```
-
-## Install Ansible and Galaxy Modules
-
-```bash
-sudo apt install ansible -y
-```
-
-```bash
-ansible-galaxy collection install cisco.intersight
-```
-
-## Install PowerShell and Modules
-
-```bash
-sudo snap install powershell
-```
-
-```bash
-pwsh -Command Install-Module -Name Intersight.PowerShell -Force
-```
-
-```bash
-pwsh -Command Install-Module -Name VMware.PowerCLI -Force
-```
-
-
-## Install Terraform
+## Install Packer
 
 ```bash
 sudo apt-get update && sudo apt-get install -y gnupg software-properties-common
@@ -157,38 +24,60 @@ sudo tee /usr/share/keyrings/hashicorp-archive-keyring.gpg
 echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] \
 https://apt.releases.hashicorp.com $(lsb_release -cs) main" | \
 sudo tee /etc/apt/sources.list.d/hashicorp.list
+sudo apt update -y
+sudo apt-get install packer -y
 ```
+
+## Generate a hashed password for the user-data file
+
+Run the command below and when prompted for PASSWORD enter the Password desired for the User Account.
 
 ```bash
-sudo apt update
+mkpasswd -m sha-512 --rounds=4096
 ```
+
+You will get an encrypted password similar to the following:
 
 ```bash
-sudo apt-get install terraform
+Password: $6$KU2P9m78xF3n$noEN/CV.0R4qMLdDh/TloUplmJ0DLnqi6/cP7hHgfwUu.D0hMaD2sAfxDT3eHP5BQ3HdgDkKuIk8zBh0mDLzO1
 ```
+
+* Copy the user-data.example to user-data
 
 ```bash
-terraform -install-autocomplete
+cd vmware/http/
+cp user-data.example user-data
+cd ../
 ```
 
-## Install isdk
+* Update the hostname, username, password (with the hashed password), 
+* Uncomment the authorized-keys if you would like to add a valid ssh-rsa public key for cloud deployments.
+* Copy the variables.yaml.example to variables.yaml
 
 ```bash
-LOCATION=$(curl -s https://api.github.com/repos/cgascoig/isctl/releases/latest \
-| grep "tag_name" \
-| awk '{print "https://github.com/cgascoig/isctl/releases/download/" substr($2, 2, length($2)-3) \
-"/isctl_" substr($2, 2, length($2)-3) "_Linux_x86_64.tar.gz"}' \
-| sed 's/isctl_v/isctl_/'); curl -L -o isctl.tar.gz $LOCATION
+cp variables.yaml.example to variables.yaml
 ```
+
+* Use the defaults.yaml as an example source and make any modifications you would like to the deployment settings in variables.yaml.
+
+## Setup Packer Sensitive Variables
 
 ```bash
-tar -xvf isctl.tar.gz
-rm isctl.tar.gz
-sudo mv isctl /usr/local/bin/
-sudo chmod +x /usr/local/bin/isctl
+export PKR_VAR_virtual_machine_password="same_password_as_mkpasswd_plain_text"
+export PKR_VAR_vsphere_password="vcenter_password_plain_text"
 ```
 
-## Setup OVF Customization on VM
+## Running packer build with hcl
+
+```sh
+packer build -force -on-error=ask vmware.pkr.hcl
+```
+
+## Troubleshooting
+
+- If packer gets stuck on `Waiting for IP` you may want to check your DHCP server.
+
+## Setup OVF Customization on Virtual Machine
 
 ![alt text](vApp-Options.png "vApp Options")
 

@@ -80,6 +80,7 @@ mkdir Logs
 mkdir github
 cd github/
 git clone https://github.com/scotttyso/intersight_iac
+cd intersight_iac
 sudo pip install -r requirements.txt
 sudo ln -s /home/toolkit/github/intersight_iac/ezimm.py /usr/bin/ezimm.py
 sudo ln -s /home/toolkit/github/intersight_iac/ezci.py /usr/bin/ezci.py
@@ -93,7 +94,7 @@ sudo pip install intersight
 ansible-galaxy collection install cisco.intersight
 
 ### Install PowerShell ###
-sudo snap install powershell
+sudo snap install powershell --classic
 pwsh -Command Install-Module -Name Intersight.PowerShell -Force
 pwsh -Command Install-Module -Name VMware.PowerCLI -Force
 
@@ -120,8 +121,8 @@ sudo mv isctl /usr/local/bin/
 sudo chmod +x /usr/local/bin/isctl
 
 ### Copy OVF Template Setup Files ###
-wget https://raw.githubusercontent.com/scotttyso/imm-toolkit/main/ovf_network_config.sh
-wget https://raw.githubusercontent.com/scotttyso/imm-toolkit/main/ovf-network-config.service
+wget https://raw.githubusercontent.com/scotttyso/intersight-toolkit/main/ovf_network_config.sh
+wget https://raw.githubusercontent.com/scotttyso/intersight-toolkit/main/ovf-network-config.service
 sudo chmod 744 ovf_network_config.sh
 sudo chmod 664 ovf-network-config.service
 sudo mv ovf_network_config.sh /usr/local/bin/ovf_network_config.sh
@@ -129,9 +130,9 @@ sudo mv ovf-network-config.service /etc/systemd/system/ovf-network-config.servic
 sudo systemctl daemon-reload
 sudo systemctl enable ovf-network-config.service
 
-### Executes the cleauup script. ### 
-#echo '> Executing the cleanup script ...'
-#sudo /tmp/cleanup.sh
+## Executes the cleauup script. ### 
+echo '> Executing the cleanup script ...'
+sudo /tmp/cleanup.sh
 
-### All done. ### 
-#echo '> Done.'  
+## All done. ### 
+echo '> Done.'  

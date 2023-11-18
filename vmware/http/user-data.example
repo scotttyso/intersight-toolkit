@@ -16,8 +16,8 @@ autoinstall:
                 ens192:
                     dhcp4: true
     identity:
-        hostname: ubuntu
-        username: ubuntu
+        hostname: intersight-toolkit
+        username: toolkit
         password: "$6$rounds=4096$ntlX/dlo6b$HXaLN4RcLIGaEDdQdR2VTYi9pslSeXWL131MqaakqE285Nv0kW9KRontQYivCbycZerUMcjVsuLl2V8bbdadI1"
     ssh:
         install-server: yes
