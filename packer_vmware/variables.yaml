@@ -1,0 +1,16 @@
+---
+virtual_machine:
+  memory: 4096
+  name: IMM-TOOLKITv3
+  network:
+    port_group: 10.101.125.0-Mgmt
+  username: toolkit
+vsphere:
+  cluster: HX
+  datacenter: Richfield
+  datastore: NVMe-DS1
+  esx_host: r142a-2.rich.ciscolabs.com
+  username: administrator@rich.local
+  vcenter: vcenter.rich.ciscolabs.com
+shell_scripts:
+ - setup.sh

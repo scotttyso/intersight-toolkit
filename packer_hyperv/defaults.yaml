@@ -1,0 +1,38 @@
+---
+image:
+  checksum: a4acfda10b18da50e2ec50ccaf860d7f20b389df8765611142305c0e911d16fd
+  url: https://releases.ubuntu.com/jammy/ubuntu-22.04.3-live-server-amd64.iso
+shell_scripts: []
+virtual_machine:
+  boot_wait: 5s
+  cdrom_type: sata
+  cpu_cores: 4
+  cpu_sockets: 1
+  firmware: bios
+  guest_os_type: ubuntu64Guest
+  memory: 1024
+  name: Ubuntu-2204-Template-100GB-Thin
+  network:
+    adapter_type: vmxnet3
+    port_group: VM Network
+  ssh:
+    handshake_attempts: 100
+    port: 22
+    timeout: 30m
+  storage:
+    disk_controller_type:
+      - pvscsi
+    disk_eagerly_scrub: false
+    disk_size:  102400
+    thin_provision: true
+  username: ubuntu
+  version: 14
+vsphere:
+  cluster: Cluster1
+  datacenter: DataCenter
+  datastore: datastore1
+  esx_host: server.example.com
+  ignore_certificate: true
+  template_folder: Templates
+  username: administrator@vsphere.local
+  vcenter: vcenter.example.com

@@ -1,0 +1,9 @@
+---
+vsphere:
+  cluster: HX
+  datacenter: Richfield
+  esx_host: r142a-2.rich.ciscolabs.com
+  username: administrator@rich.local
+  vcenter: vcenter.rich.ciscolabs.com
+shell_scripts:
+ - setup.sh

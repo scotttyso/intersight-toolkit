@@ -6,6 +6,7 @@
 **/.secret
 **/terraform.tfvars
 **/.terraform.lock.hcl
+**/http/user-data
 
 # Local Python Directories
 **/Testing*/*
