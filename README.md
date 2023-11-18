@@ -73,10 +73,6 @@ export PKR_VAR_vsphere_password="vcenter_password_plain_text"
 packer build -force -on-error=ask vmware.pkr.hcl
 ```
 
-## Troubleshooting
-
-- If packer gets stuck on `Waiting for IP` you may want to check your DHCP server.
-
 ## Setup OVF Customization on Virtual Machine
 
 ![alt text](vApp-Options.png "vApp Options")
@@ -144,3 +140,7 @@ packer build -force -on-error=ask vmware.pkr.hcl
 cd %ProgramFiles%\VMware\VMware OVF Tool
 ovftool.exe vi://<vcenter-url>/<datacenter>/vm/<vm-folder> %HOMEPATH%\Downloads\imm-toolkitv0.1.ova
 ```
+
+## Troubleshooting
+
+- If packer gets stuck on `Waiting for IP` you may want to check your DHCP server.
