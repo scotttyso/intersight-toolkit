@@ -1,10 +1,10 @@
 # Intersight Toolkit Setup Instructions
 
-The purpose of this packer example is to build an automation platform to manage Cisco Intersight.  The current example deployes a template in a VMware environment, which then can be used to create an OVA for distribution.
+The purpose of this HashiCorp Packer example is to build an automation platform to manage Cisco Intersight.  The current example deployes a template in a VMware environment, which then can be used to create an OVA for distribution.  It provides an environment to perform automation with Ansible, PowerShell, Python, and Terraform.
 
 ## Updates/News
 
-* 2023-11-18 - v2.0 - Moving to HashiCorp Packer - Guidance from https://tekanaid.com/posts/hashicorp-packer-build-ubuntu22-04-vmware
+* 2023-11-18 - v2.0.1 - Moving to HashiCorp Packer - Guidance from https://tekanaid.com/posts/hashicorp-packer-build-ubuntu22-04-vmware
 * 2023-05-04 - Initial Release
 
 ## Setup Environment
