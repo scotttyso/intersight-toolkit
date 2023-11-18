@@ -74,19 +74,19 @@ EOF
 echo '> Changeing script permissions for execution ...'
 sudo chmod +x /tmp/cleanup.sh
 
-### Setup Directories - Install intersight_iac ###
+### Setup Directories - Install intersight-tools ###
 mkdir Downloads
 mkdir Logs
 mkdir github
 cd github/
-git clone https://github.com/scotttyso/intersight_iac
-cd intersight_iac
+git clone https://github.com/scotttyso/intersight-tools
+cd intersight-tools
 sudo pip install -r requirements.txt
-sudo ln -s /home/toolkit/github/intersight_iac/ezimm.py /usr/bin/ezimm.py
-sudo ln -s /home/toolkit/github/intersight_iac/ezci.py /usr/bin/ezci.py
-sudo ln -s /home/toolkit/github/intersight_iac/ezazure.ps1 /usr/bin/ezazure.ps1
-sudo ln -s /home/toolkit/github/intersight_iac/ezpure_login.ps1 /usr/bin/ezpure_login.ps1
-sudo ln -s /home/toolkit/github/intersight_iac/ezvcenter.ps1 /usr/bin/ezvcenter.ps1
+sudo ln -s /home/toolkit/github/intersight-tools/ezimm.py /usr/bin/ezimm.py
+sudo ln -s /home/toolkit/github/intersight-tools/ezci.py /usr/bin/ezci.py
+sudo ln -s /home/toolkit/github/intersight-tools/ezazure.ps1 /usr/bin/ezazure.ps1
+sudo ln -s /home/toolkit/github/intersight-tools/ezpure_login.ps1 /usr/bin/ezpure_login.ps1
+sudo ln -s /home/toolkit/github/intersight-tools/ezvcenter.ps1 /usr/bin/ezvcenter.ps1
 cd ~
 sudo pip install intersight
 
