@@ -82,11 +82,11 @@ cd github/
 git clone https://github.com/scotttyso/intersight-tools
 cd intersight-tools
 sudo pip install -r requirements.txt
-sudo ln -s /home/toolkit/github/intersight-tools/ezimm.py /usr/bin/ezimm.py
-sudo ln -s /home/toolkit/github/intersight-tools/ezci.py /usr/bin/ezci.py
-sudo ln -s /home/toolkit/github/intersight-tools/ezazure.ps1 /usr/bin/ezazure.ps1
-sudo ln -s /home/toolkit/github/intersight-tools/ezpure_login.ps1 /usr/bin/ezpure_login.ps1
-sudo ln -s /home/toolkit/github/intersight-tools/ezvcenter.ps1 /usr/bin/ezvcenter.ps1
+ssudo ln -s $(readlink -f ezimm.py) /usr/bin/ezimm.py
+sudo ln -s $(readlink -f ezci.py) /usr/bin/ezci.py
+sudo ln -s $(readlink -f ezazure.ps1) /usr/bin/ezazure.ps1
+sudo ln -s $(readlink -f ezpure_login.ps1) /usr/bin/ezpure_login.ps1
+sudo ln -s $(readlink -f ezvcenter.ps1) /usr/bin/ezvcenter.ps1
 cd ~
 sudo pip install intersight
 
