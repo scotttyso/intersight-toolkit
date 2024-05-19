@@ -4,7 +4,9 @@ The purpose of this HashiCorp Packer example is to build an automation platform 
 
 ## Updates/News
 
-* 2023-11-18 - v2.0.1 - Moving to HashiCorp Packer - Guidance from https://tekanaid.com/posts/hashicorp-packer-build-ubuntu22-04-vmware
+* 2024-05-18 - v1.0.11-16342 - Matching Intersight API latest Release
+* 2023-11-18 - v2.0.1 - Moving to HashiCorp Packer - 
+  Credit to [tekenaid](https://tekanaid.com/posts/hashicorp-packer-build-ubuntu22-04-vmware) and [WilliamLam](https://williamlam.com/2019/02/building-your-own-virtual-appliances-using-ovf-properties-part-1.html)
 * 2023-05-04 - Initial Release
 
 ## Setup Environment
