@@ -145,7 +145,9 @@ ovftool.exe vi://<vcenter-url>/<datacenter>/vm/<vm-folder> %HOMEPATH%\Downloads\
 
 - If packer gets stuck on `Waiting for IP` you may want to check your DHCP server.
 
-## Example Output of packer
+## Packer example output
+
+Below is an example of a successful run of the packer image builder for ubuntu-22.04
 
 ```
 tyscott@rich.ciscolabs.com@lnx2:~/scotttyso/toolkitv1.0.11-16342$ packer build -force -on-error=ask vmware.pkr.hcl 
