@@ -27,7 +27,7 @@ network:
   version: 2
   renderer: networkd
   ethernets:
-    ens160:
+    ens192:
       dhcp4: true
 __CUSTOMIZE_NETPLAN__
     ##################################
@@ -40,7 +40,7 @@ network:
   version: 2
   renderer: networkd
   ethernets:
-    ens160:
+    ens192:
       dhcp4: false
       addresses: [${IP_ADDRESS}/${PREFIX}]
       routes:

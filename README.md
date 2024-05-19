@@ -75,7 +75,49 @@ packer build -force -on-error=ask vmware.pkr.hcl
 
 ## Setup OVF Customization on Virtual Machine
 
-![alt text](vApp-Options.png "vApp Options")
+* Create a Virtual Machine from the Template created by Packer.
+* From the Virtual machine click `Configure` -> `vApp Options` -> `EDIT`
+* Check `Enable vApp options`
+* On the `IP Allocation` Tab check `OVF environment`
+
+![alt text](vApp-IP-Allocation.png "vApp IP Allocation")
+
+* Click the `OVF Details` tab and select `VMware Tools` as shown below.
+
+![alt text](vApp-OVF-Details.png "vApp IP Allocation")
+
+* Enter the `Details`, similar to the example shown below.  Click `OK`.
+
+![alt text](vApp-Details.png "vApp Details")
+
+* Shutdown the Virtual Machine.  And then Power it back on.
+* Validate the vmtools are reporting the environment:
+
+### Example
+
+```
+vmtoolsd --cmd "info-get guestinfo.ovfenv"
+<?xml version="1.0" encoding="UTF-8"?>
+<Environment
+     xmlns="http://schemas.dmtf.org/ovf/environment/1"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xmlns:oe="http://schemas.dmtf.org/ovf/environment/1"
+     xmlns:ve="http://www.vmware.com/schema/ovfenv"
+     oe:id=""
+     ve:vCenterId="vm-11083">
+   <PlatformSection>
+      <Kind>VMware ESXi</Kind>
+      <Version>8.0.1</Version>
+      <Vendor>VMware, Inc.</Vendor>
+      <Locale>en</Locale>
+   </PlatformSection>
+   <ve:EthernetAdapterSection>
+      <ve:Adapter ve:mac="00:50:56:ba:7e:3d" ve:network="10.101.125.0-Mgmt" ve:unitNumber="7"/>
+   </ve:EthernetAdapterSection>
+</Environment>
+```
+
+* Power off the Virtual Machine.   You will then be able to edit the `vApp Properties`.  Fill in the attributes as outlined below.
 
 ![alt text](vApp-Properties.png "vApp Properties")
 
@@ -136,14 +178,38 @@ packer build -force -on-error=ask vmware.pkr.hcl
 
 ## Create OVA From VM or VM Template
 
+* Download the VMware OVF Tool from the Broadcom developer WebSite
+
+[OVF Tool](https://developer.broadcom.com/tools/open-virtualization-format-ovf-tool/latest)
+
+* Run the Installation
+* Power off the Virtual Machine
+
 ```powershell
 cd %ProgramFiles%\VMware\VMware OVF Tool
-ovftool.exe vi://<vcenter-url>/<datacenter>/vm/<vm-folder> %HOMEPATH%\Downloads\imm-toolkitv0.1.ova
+ovftool.exe vi://<vcenter-url>/<datacenter>/vm/<vm-folder> %HOMEPATH%\Downloads\intersight-toolkitv0.1.ova
+```
+
+### Example
+```powershell
+C:\Program Files\VMware\VMware OVF Tool>ovftool.exe vi://vcenter.rich.ciscolabs.com/Richfield/vm/intersight-toolkitv3 HOMEPATH%\Downloads\intersight-toolkitv3.ova
+Enter login information for source vi://vcenter.rich.ciscolabs.com/
+Username: <admin-credentials>
+Password: ********
+Opening VI source: vi://administrator%40rich.local@vcenter.rich.ciscolabs.com:443/Richfield/vm/intersight-toolkitv3
+Opening OVA target: \Users\tyscott\Downloads\intersight-toolkitv3.ova
+Writing OVA package: \Users\tyscott\Downloads\intersight-toolkitv3.ova
 ```
 
 ## Troubleshooting
 
 - If packer gets stuck on `Waiting for IP` you may want to check your DHCP server.
+- Recently had a problem where the Open-SSH Server did not Install properly
+
+```
+sudo apt remove openssh-server
+sudo apt install openssh-server
+```
 
 ## Packer example output
 
