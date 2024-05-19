@@ -184,14 +184,14 @@ toolkit@localhost:~$
 [OVF Tool](https://developer.broadcom.com/tools/open-virtualization-format-ovf-tool/latest)
 
 * Run the Installation
-* Power off the Virtual Machine
-
+* Run the command to export the OVF template
 ```powershell
 cd %ProgramFiles%\VMware\VMware OVF Tool
 ovftool.exe vi://<vcenter-url>/<datacenter>/vm/<vm-folder> %HOMEPATH%\Downloads\intersight-toolkitv0.1.ova
 ```
 
 ### Example
+
 ```powershell
 C:\Program Files\VMware\VMware OVF Tool>ovftool.exe vi://vcenter.rich.ciscolabs.com/Richfield/vm/intersight-toolkitv3 HOMEPATH%\Downloads\intersight-toolkitv3.ova
 Enter login information for source vi://vcenter.rich.ciscolabs.com/
