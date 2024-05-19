@@ -96,7 +96,7 @@ packer build -force -on-error=ask vmware.pkr.hcl
 ### Example
 
 ```
-vmtoolsd --cmd "info-get guestinfo.ovfenv"
+toolkit@localhost:~$ vmtoolsd --cmd "info-get guestinfo.ovfEnv"
 <?xml version="1.0" encoding="UTF-8"?>
 <Environment
      xmlns="http://schemas.dmtf.org/ovf/environment/1"
@@ -115,6 +115,7 @@ vmtoolsd --cmd "info-get guestinfo.ovfenv"
       <ve:Adapter ve:mac="00:50:56:ba:7e:3d" ve:network="10.101.125.0-Mgmt" ve:unitNumber="7"/>
    </ve:EthernetAdapterSection>
 </Environment>
+toolkit@localhost:~$ 
 ```
 
 * Power off the Virtual Machine.   You will then be able to edit the `vApp Properties`.  Fill in the attributes as outlined below.
