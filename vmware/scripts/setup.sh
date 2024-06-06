@@ -78,8 +78,12 @@ sudo chmod +x /tmp/cleanup.sh
 mkdir Downloads
 mkdir Logs
 mkdir github
+chown toolkit:toolkit Downloads
+chown toolkit:toolkit Logs
+chown toolkit:toolkit github
 cd github/
 git clone https://github.com/scotttyso/intersight-tools
+chown toolkit:toolkit intersight-tools/
 cd intersight-tools
 sudo pip install -r requirements.txt
 sudo ln -s $(readlink -f ezimm.py) /usr/bin/ezimm.py
